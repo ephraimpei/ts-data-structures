@@ -1,8 +1,5 @@
 {
-  "rulesDirectory": [
-    "data-structures",
-    "types"
-  ],
+  "rulesDirectory": ["src"],
   "rules": {
     "array-type": [true, "array"],
     "arrow-return-shorthand": false,
