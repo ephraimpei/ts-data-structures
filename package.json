@@ -1,0 +1,17 @@
+{
+  "name": "ts-data-structures",
+  "version": "1.0.0",
+  "description": "Data structures implemented in Typescript",
+  "repository": "https://github.com/ephraimpei/ts-data-structures",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "author": "Ephraim Pei <ephraim.pei@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "tslint": "^5.9.1",
+    "tslint-microsoft-contrib": "^5.0.3",
+    "typescript": "^2.7.2"
+  }
+}

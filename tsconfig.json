@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "pretty": true,
+    "importHelpers": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "baseUrl": "./",
+    "rootDir": "./",
+    "target": "es2016",
+    "outDir": "build"
+  },
+  "include": [
+    "data-structures",
+    "abstract"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ],
+}
