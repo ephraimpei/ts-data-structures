@@ -1,4 +1,12 @@
-import { StackApi } from '../../abstract/stack-queue';
+/**
+ * Stack abstract class
+ */
+export abstract class StackApi {
+  public abstract peek(): any;
+  public abstract push(item: any): any;
+  public abstract pop(): any;
+  public abstract isEmpty(): boolean;
+}
 
 /**
  * Stack class - basic stack data structure

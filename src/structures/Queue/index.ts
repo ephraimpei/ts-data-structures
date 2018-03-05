@@ -1,5 +1,14 @@
-import { QueueApi } from '../../abstract/stack-queue';
 import { Stack } from '../Stack';
+
+/**
+ * Queue abstract class
+ */
+export abstract class QueueApi {
+  public abstract peek(): any;
+  public abstract enqueue(item: any): any;
+  public abstract dequeue(): any;
+  public abstract isEmpty(): boolean;
+}
 
 /**
  * Queue class - basic queue data structure implemented with two stacks
