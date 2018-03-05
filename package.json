@@ -5,11 +5,15 @@
   "repository": "https://github.com/ephraimpei/ts-data-structures",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc"
+    "compile": "rm -rf ./build/* && tsc",
+    "test": "npm run compile && istanbul cover jasmine"
   },
   "author": "Ephraim Pei <ephraim.pei@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@types/jasmine": "^2.8.6",
+    "istanbul": "^0.4.5",
+    "jasmine": "^3.1.0",
     "tslint": "^5.9.1",
     "tslint-microsoft-contrib": "^5.0.3",
     "typescript": "^2.7.2"

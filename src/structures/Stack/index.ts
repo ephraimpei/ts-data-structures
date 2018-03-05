@@ -1,9 +1,9 @@
-import { StackOrQueueApi } from '../../abstract/stack-queue';
+import { StackApi } from '../../abstract/stack-queue';
 
 /**
  * Stack class - basic stack data structure
  */
-export class Stack implements StackOrQueueApi {
+export class Stack implements StackApi {
   private items: any[];
 
   constructor(items: any[] = []) {

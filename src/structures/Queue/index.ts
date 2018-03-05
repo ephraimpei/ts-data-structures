@@ -1,10 +1,10 @@
-import { StackOrQueueApi } from '../../abstract/stack-queue';
+import { QueueApi } from '../../abstract/stack-queue';
 import { Stack } from '../Stack';
 
 /**
  * Queue class - basic queue data structure implemented with two stacks
  */
-export class Queue implements StackOrQueueApi {
+export class Queue implements QueueApi {
   private newest: Stack;
   private oldest: Stack;
 
@@ -38,9 +38,9 @@ export class Queue implements StackOrQueueApi {
   }
 
   /**
-   * push - public method to push item into the queue
+   * enqueue - public method to enqueue an item
    */
-  public push(item: any): any {
+  public enqueue(item: any): any {
     if (!item) {
       return;
     }
@@ -50,9 +50,9 @@ export class Queue implements StackOrQueueApi {
   }
 
   /**
-   * pop - public method to pop first item in the queue
+   * dequeue - public method to dequeue an item
    */
-  public pop(): any {
+  public dequeue(): any {
     if (this.oldest.isEmpty()) {
       this._transfer(this.newest, this.oldest);
     }
