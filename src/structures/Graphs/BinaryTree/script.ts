@@ -21,7 +21,27 @@ bst.preOrderTraversal();
 console.log('====== POST ORDER TRAVERSAL =======');
 bst.postOrderTraversal();
 
-console.log('====== DELETE =======');
+console.log('====== DELETE (not working 100%) =======');
 bst.delete(5);
-bst.delete(6);
 bst.print();
+
+console.log('====== IS COMPLETE =======');
+console.log('====== IS FULL =======');
+const fullBst = new BinarySearchTree(new Node(10));
+fullBst.insert(new Node(5));
+fullBst.insert(new Node(20));
+fullBst.insert(new Node(3));
+fullBst.insert(new Node(7));
+fullBst.insert(new Node(18));
+fullBst.insert(new Node(30));
+console.log(fullBst.isFull()); // should be true
+const notFullBst = new BinarySearchTree(new Node(10));
+notFullBst.insert(new Node(5));
+notFullBst.insert(new Node(12));
+notFullBst.insert(new Node(20));
+notFullBst.insert(new Node(3));
+notFullBst.insert(new Node(7));
+notFullBst.insert(new Node(9));
+notFullBst.insert(new Node(18));
+console.log(notFullBst.isFull()); // should be false
+console.log('====== IS PERFECT =======');

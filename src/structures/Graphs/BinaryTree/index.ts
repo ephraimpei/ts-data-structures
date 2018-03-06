@@ -11,6 +11,12 @@ const nodeOutput = (node: Node | null) => `${node ? node.value : ' '}`;
 
 const printNode = (node: Node) => console.log(nodeOutput(node));
 
+const fullTreeVisit = (fullTreeIndicator: { full: boolean }) => (node: Node) => {
+  if (node.children.length === 1) {
+    fullTreeIndicator.full = false;
+  }
+};
+
 /**
  * BinarySearchTree - BST implementation extending from Tree constructor
  */
@@ -100,11 +106,11 @@ export class BinarySearchTree extends Tree {
   public inOrderTraversal = (node: Node = this.root, visit: Function = printNode) => {
     if (node) {
       if (node.left) {
-        this.inOrderTraversal(node.left);
+        this.inOrderTraversal(node.left, visit);
       }
       visit(node);
       if (node.right) {
-        this.inOrderTraversal(node.right);
+        this.inOrderTraversal(node.right, visit);
       }
     }
   }
@@ -116,10 +122,10 @@ export class BinarySearchTree extends Tree {
     if (node) {
       visit(node);
       if (node.left) {
-        this.preOrderTraversal(node.left);
+        this.preOrderTraversal(node.left, visit);
       }
       if (node.right) {
-        this.preOrderTraversal(node.right);
+        this.preOrderTraversal(node.right, visit);
       }
     }
   }
@@ -130,10 +136,10 @@ export class BinarySearchTree extends Tree {
   public postOrderTraversal = (node: Node = this.root, visit: Function = printNode) => {
     if (node) {
       if (node.left) {
-        this.postOrderTraversal(node.left);
+        this.postOrderTraversal(node.left, visit);
       }
       if (node.right) {
-        this.postOrderTraversal(node.right);
+        this.postOrderTraversal(node.right, visit);
       }
       visit(node);
     }
@@ -193,14 +199,30 @@ export class BinarySearchTree extends Tree {
 
     return null;
   }
-}
 
-export class MinHeap extends Tree {
-  public insert: (node: Node) => void;
-  public extractMin: () => void;
-}
+  /**
+   * isComplete - true if every level is fully filled
+   * exception: last level is filled at least from left to right
+   */
+  public isComplete = (): boolean => {
+    return true;
+  }
 
-export class MaxHeap extends Tree {
-  public insert: (node: Node) => void;
-  public extractMin: () => void;
+  /**
+   * isFull - true if every node has either zero or two children
+   */
+  public isFull = (node: Node = this.root): boolean => {
+    const fullTreeIndicator = { full: true };
+
+    this.preOrderTraversal(node, fullTreeVisit(fullTreeIndicator));
+
+    return fullTreeIndicator.full;
+  }
+
+  /**
+   * isPerfect - true if both full and complete
+   */
+  public isPerfect = (): boolean => {
+    return this.isComplete() && this.isFull();
+  }
 }
