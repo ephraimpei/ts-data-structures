@@ -164,9 +164,34 @@ export class BinarySearchTree extends Tree {
 
   /**
    * delete - delete a node from the tree
+   * NOTE: incomplete, a bit buggy
    */
-  public delete = (node: Node, curr: Node = this.root) => {
-    checkValidNode(node);
+  public delete = (
+    value: string | number, curr: Node = this.root
+  ): string | number | null => {
+    if (value === curr.value) {
+      if (curr.right) {
+        curr.left.right = curr.right;
+      }
+
+      if (curr.left) {
+        if (curr.parent.value < value) { // right branch
+          curr.parent.right = curr.left;
+        } else { // left branch
+          curr.parent.left = curr.left;
+        }
+      }
+
+      return value;
+    }
+
+    if (value < curr.value) {
+      this.delete(value, curr.left);
+    } else {
+      this.delete(value, curr.right);
+    }
+
+    return null;
   }
 }
 
