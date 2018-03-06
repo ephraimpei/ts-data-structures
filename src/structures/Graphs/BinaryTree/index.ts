@@ -203,13 +203,51 @@ export class BinarySearchTree extends Tree {
   /**
    * isComplete - true if every level is fully filled
    * exception: last level is filled at least from left to right
+   * Uses a form of BFS...
    */
-  public isComplete = (): boolean => {
-    return true;
+  public isComplete = (
+    nodes: Node[] = [this.root], depth: number = 1, isLastRow: boolean = false
+  ): boolean => {
+    if (isLastRow) {
+      if (nodes.length === 1 && !nodes[0].parent) {
+        return true;
+      }
+
+      let result = true;
+
+      for (let i = 0; i < nodes.length; i++) {
+        if (i % 2 === 0) {
+          if (!nodes[i].parent.left || (nodes[i].value !== nodes[i].parent.left.value)) {
+            result = false;
+            break;
+          }
+        } else {
+          if (!nodes[i].parent.right || (nodes[i].value !== nodes[i].parent.right.value)) {
+            result = false;
+            break;
+          }
+        }
+      }
+
+      return result;
+    }
+
+    const numChildren = nodes.reduce((acc, n) => acc + n.children.length, 0);
+    const expectedNumChildren = Math.pow(2, depth);
+
+    const children = nodes.reduce((acc, n) => acc.concat(n.children), ([] as Node[]));
+    const nextIsLastRow = !children.some(n => n.children.length !== 0);
+
+    if ((numChildren === expectedNumChildren) || nextIsLastRow) {
+      return this.isComplete(children, depth + 1, nextIsLastRow);
+    }
+
+    return false;
   }
 
   /**
    * isFull - true if every node has either zero or two children
+   * Uses preOrderTraversal algo... can also use BFS...
    */
   public isFull = (node: Node = this.root): boolean => {
     const fullTreeIndicator = { full: true };

@@ -26,6 +26,19 @@ bst.delete(5);
 bst.print();
 
 console.log('====== IS COMPLETE =======');
+const isCompleteBst = new BinarySearchTree(new Node(10));
+isCompleteBst.insert(new Node(5));
+isCompleteBst.insert(new Node(3));
+isCompleteBst.insert(new Node(7));
+isCompleteBst.insert(new Node(20));
+isCompleteBst.insert(new Node(18));
+console.log(isCompleteBst.isComplete()); // should be true
+const isNotCompleteBst = new BinarySearchTree(new Node(10));
+isNotCompleteBst.insert(new Node(5));
+isNotCompleteBst.insert(new Node(3));
+isNotCompleteBst.insert(new Node(20));
+isNotCompleteBst.insert(new Node(18));
+console.log(isNotCompleteBst.isComplete()); // should be false
 console.log('====== IS FULL =======');
 const fullBst = new BinarySearchTree(new Node(10));
 fullBst.insert(new Node(5));
@@ -45,3 +58,7 @@ notFullBst.insert(new Node(9));
 notFullBst.insert(new Node(18));
 console.log(notFullBst.isFull()); // should be false
 console.log('====== IS PERFECT =======');
+isCompleteBst.insert(new Node(30));
+console.log(isCompleteBst.isPerfect()); // should be true;
+fullBst.insert(new Node(31));
+console.log(fullBst.isPerfect()); // should be false;
