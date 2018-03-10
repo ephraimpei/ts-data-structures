@@ -2,6 +2,7 @@ import { Node } from '../Node';
 
 export class Tree {
   public root: Node;
+  private visited: Set<Node>;
 
   constructor(root: Node) {
     if (!root) {
@@ -10,23 +11,4 @@ export class Tree {
 
     this.root = root;
   }
-
-  // Tree attributes
-  public isComplete: () => boolean;
-  public isFull: () => boolean;
-  public isPerfect: () => boolean;
-  public isBalanced: () => boolean;
-
-  // Tree traversals
-  public inOrderTraversal: (node: Node) => void;
-  public preOrderTraversal: (node: Node) => void;
-  public postOrderTraversal: (node: Node) => void;
-
-  // public breadthFirstSearch(node: Node) {
-
-  // }
-
-  // public depthFirstSearch(node: Node) {
-
-  // }
 }

@@ -17,10 +17,10 @@ describe('Node class', () => {
       expect(node.value).toEqual(5);
     });
 
-    it('sets the children instance variable to an empty array', () => {
+    it('sets the adjacent instance variable to an empty array', () => {
       node = new Node('a');
-      expect(node.children instanceof Array).toBe(true);
-      expect(node.children.length).toEqual(0);
+      expect(node.adjacent instanceof Array).toBe(true);
+      expect(node.adjacent.length).toEqual(0);
     });
   });
 });

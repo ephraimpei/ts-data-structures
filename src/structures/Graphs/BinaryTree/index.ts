@@ -1,17 +1,16 @@
-import { Node } from '../Node';
-import { Tree } from '../Tree';
+import { BinaryNode } from '../BinaryNode';
 
-const checkValidNode = (node: Node) => {
+const checkValidNode = (node: BinaryNode) => {
   if (typeof node.value !== 'number') {
-    throw new TypeError('Node value must be a number');
+    throw new TypeError('BinaryNode value must be a number');
   }
 };
 
-const nodeOutput = (node: Node | null) => `${node ? node.value : ' '}`;
+const nodeOutput = (node: BinaryNode | null) => `${node ? node.value : ' '}`;
 
-const printNode = (node: Node) => console.log(nodeOutput(node));
+const printNode = (node: BinaryNode) => console.log(nodeOutput(node));
 
-const fullTreeVisit = (fullTreeIndicator: { full: boolean }) => (node: Node) => {
+const fullTreeVisit = (fullTreeIndicator: { full: boolean }) => (node: BinaryNode) => {
   if (node.children.length === 1) {
     fullTreeIndicator.full = false;
   }
@@ -20,7 +19,17 @@ const fullTreeVisit = (fullTreeIndicator: { full: boolean }) => (node: Node) => 
 /**
  * BinarySearchTree - BST implementation extending from Tree constructor
  */
-export class BinarySearchTree extends Tree {
+export class BinarySearchTree {
+  public root: BinaryNode;
+
+  constructor(root: BinaryNode) {
+    if (!root) {
+      throw new TypeError('Must be instantiated with a root node');
+    }
+
+    this.root = root;
+  }
+
   /**
    * render - draw a tree in the console
    * NOTE: DO NOT USE !!! It's pretty broken...
@@ -80,7 +89,7 @@ export class BinarySearchTree extends Tree {
 
     while (nodes.length > 0) {
       console.log(output);
-      const newNodes: Node[] = [];
+      const newNodes: BinaryNode[] = [];
 
       for (let i = 0; i < nodes.length; i++) {
         const currNode = nodes[i];
@@ -103,7 +112,7 @@ export class BinarySearchTree extends Tree {
   /**
    * inOrderTraversal - visit left branch, current node, then right branch
    */
-  public inOrderTraversal = (node: Node = this.root, visit: Function = printNode) => {
+  public inOrderTraversal = (node: BinaryNode = this.root, visit: Function = printNode) => {
     if (node) {
       if (node.left) {
         this.inOrderTraversal(node.left, visit);
@@ -118,7 +127,7 @@ export class BinarySearchTree extends Tree {
   /**
    * preOrderTraverl - visit current node, left branch, then right branch
    */
-  public preOrderTraversal = (node: Node = this.root, visit: Function = printNode) => {
+  public preOrderTraversal = (node: BinaryNode = this.root, visit: Function = printNode) => {
     if (node) {
       visit(node);
       if (node.left) {
@@ -133,7 +142,7 @@ export class BinarySearchTree extends Tree {
   /**
    * postOrderTraversal - visit left branch, right branch, then current node
    */
-  public postOrderTraversal = (node: Node = this.root, visit: Function = printNode) => {
+  public postOrderTraversal = (node: BinaryNode = this.root, visit: Function = printNode) => {
     if (node) {
       if (node.left) {
         this.postOrderTraversal(node.left, visit);
@@ -148,7 +157,7 @@ export class BinarySearchTree extends Tree {
   /**
    * insert - insert a node into the tree
    */
-  public insert = (node: Node, curr: Node = this.root) => {
+  public insert = (node: BinaryNode, curr: BinaryNode = this.root) => {
     checkValidNode(node);
 
     if (node.value < curr.value) {
@@ -173,7 +182,7 @@ export class BinarySearchTree extends Tree {
    * NOTE: incomplete, a bit buggy
    */
   public delete = (
-    value: string | number, curr: Node = this.root
+    value: string | number, curr: BinaryNode = this.root
   ): string | number | null => {
     if (value === curr.value) {
       if (curr.right) {
@@ -206,7 +215,7 @@ export class BinarySearchTree extends Tree {
    * Uses a form of BFS...
    */
   public isComplete = (
-    nodes: Node[] = [this.root], depth: number = 1, isLastRow: boolean = false
+    nodes: BinaryNode[] = [this.root], depth: number = 1, isLastRow: boolean = false
   ): boolean => {
     if (isLastRow) {
       if (nodes.length === 1 && !nodes[0].parent) {
@@ -235,7 +244,7 @@ export class BinarySearchTree extends Tree {
     const numChildren = nodes.reduce((acc, n) => acc + n.children.length, 0);
     const expectedNumChildren = Math.pow(2, depth);
 
-    const children = nodes.reduce((acc, n) => acc.concat(n.children), ([] as Node[]));
+    const children = nodes.reduce((acc, n) => acc.concat(n.children), ([] as BinaryNode[]));
     const nextIsLastRow = !children.some(n => n.children.length !== 0);
 
     if ((numChildren === expectedNumChildren) || nextIsLastRow) {
@@ -249,7 +258,7 @@ export class BinarySearchTree extends Tree {
    * isFull - true if every node has either zero or two children
    * Uses preOrderTraversal algo... can also use BFS...
    */
-  public isFull = (node: Node = this.root): boolean => {
+  public isFull = (node: BinaryNode = this.root): boolean => {
     const fullTreeIndicator = { full: true };
 
     this.preOrderTraversal(node, fullTreeVisit(fullTreeIndicator));
