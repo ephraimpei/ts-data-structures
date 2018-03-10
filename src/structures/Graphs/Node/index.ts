@@ -1,3 +1,4 @@
+import { Queue } from '../../Queue';
 import { guidGenerator } from '../../../utils/generate-random-id';
 
 export const depthFirstSearch = (
@@ -24,7 +25,28 @@ export const depthFirstSearch = (
   return false;
 };
 
-export const breadthFirstSearch = () => { return null; };
+export const breadthFirstSearch = (source: Node, dest: Node): boolean => {
+  const queue = new Queue([source]);
+  const visited = new Set([source.id]);
+
+  while (!queue.isEmpty()) {
+    const node = queue.dequeue();
+
+    if (node.id === dest.id) {
+      return true;
+    }
+
+    visited.add(node.id);
+
+    for (const adj of node.adjacent) {
+      if (!visited.has(adj.id)) {
+        queue.enqueue(adj);
+      }
+    }
+  }
+
+  return false;
+};
 
 export const setPath = (source: Node, dest: Node) => {
   if (!source.adjacent.find(n => n.id === dest.id)) {
